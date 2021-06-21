@@ -1,0 +1,26 @@
+{
+  "name": "tracerstudyapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "client-install": "yarn install --prefix client",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "rvllfil",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^6.2.0",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "fs": "*",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.6.0",
+    "pg-format": "^1.0.4"
+  }
+}
