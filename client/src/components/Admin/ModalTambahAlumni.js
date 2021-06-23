@@ -1,5 +1,8 @@
 import Form from "react-bootstrap/Form"
+import { connect } from "react-redux"
 import { SuccessAlert, FailedAlert } from './AdminAlert'
+import { clearAlert } from '../../redux/actions/alertActions'
+import { Spinner } from "react-bootstrap"
 
 
 const ModalTambahAlumni = ({
@@ -7,8 +10,8 @@ const ModalTambahAlumni = ({
   onSubmit,
   dataAlumni,
   isInvalid,
-  showAlert,
-  closeAlert
+  alert,
+  clearAlert
 }) => {
   return (
     <div className="modal fade" id="tambah" style={{display: 'none'}} aria-hidden="true">
@@ -21,7 +24,19 @@ const ModalTambahAlumni = ({
             </button>
           </div>
           <div className="modal-body">
-            {showAlert !== 0 ? showAlert === 1 ? <SuccessAlert close={closeAlert} text='Data berhasil ditambhakan!'/> : showAlert === 2 ? <FailedAlert close={closeAlert} text='Terjadi kesalahan saat menyimpan data!'/> : '' : ''}
+            {
+              alert.loading ?
+                <div className='d-flex align-items-center justify-content-center p-5'> 
+                  <Spinner style={{width: '4rem', height: '4rem'}} animation="border" variant='primary'/>
+                </div> :
+                alert.alert !== 0 ? 
+                  alert.alert === 1 ? 
+                    <SuccessAlert close={()=>clearAlert()} text={alert.msg}/> : 
+                    alert.alert === 2 ? 
+                    <FailedAlert close={()=>clearAlert()} text={alert.msg}/> : 
+                  '' : 
+                ''
+            }
             <div className="row">
               <div className="col-md-6">
                 <Form.Group>
@@ -152,4 +167,6 @@ const numeric = e => {
   if(e.keyCode > 57) return e.preventDefault()
 }
 
-export default ModalTambahAlumni
+export default connect(null, {
+  clearAlert
+})(ModalTambahAlumni)

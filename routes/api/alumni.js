@@ -143,7 +143,7 @@ router.put('/:id', async (req, res) => {
   try {
     const updateBab = await pool.query(sql)
     if(!updateBab) throw Error('Terjadi Kesalahan ketika menyimpan Data Alumni')
-    res.status(200).json(updateBab.rows[0])
+    res.status(200).json(updateBab.rows)
   } catch (e) {
     res.status(400).json({
       msg: e.message
@@ -157,9 +157,9 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const {id} = req.params
   try {
-    const deleteBab = await pool.query("DELETE FROM alumni WHERE id = $1", [id])
+    const deleteBab = await pool.query("DELETE FROM alumni WHERE id = $1 RETURNING *;", [id])
     if(!deleteBab) throw Error("Data Alumni tidak ditemukan")
-    res.status(200).json({msg: 'data berhasil dihapus'})
+    res.status(200).json(deleteBab.rows)
   } catch (e) {
     res.status(400).json({
       msg: e.message
@@ -167,5 +167,19 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+// @route   DELETE api/alumni
+// @desc    Remove all Alumni
+// @access  Public
+router.delete('/', async (req, res) => {
+  try {
+    const deleteBab = await pool.query("DELETE FROM alumni WHERE id > 0;")
+    if(!deleteBab) throw Error("Data Alumni tidak ditemukan")
+    res.status(200).json('Berhasil menghapus semua data alumni.')
+  } catch (e) {
+    res.status(400).json({
+      msg: e.message
+    })
+  }
+})
 
 module.exports = router

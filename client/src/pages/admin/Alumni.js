@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react'
 import TableAlumni from '../../components/Admin/TableAlumni'
 import { connect } from 'react-redux'
-import { retrieveAlumni, createAlumni } from '../../redux/actions/alumniActions'
+import { retrieveAlumni, createAlumni, createBatchAlumni } from '../../redux/actions/alumniActions'
 import { Spinner } from 'react-bootstrap'
 import Footer from '../../components/adminlte/Footer'
 import Header from '../../components/adminlte/Header'
 import Menu from '../../components/adminlte/Menu'
 import ModalTambahAlumni from '../../components/Admin/ModalTambahAlumni'
 import ModalImportAlumni from '../../components/Admin/ModalImportAlumni'
-
+import * as XLSX from 'xlsx'
 
 const Alumni = ({
   retrieveAlumni,
   createAlumni,
+  createBatchAlumni,
   alumni,
-  loading
+  loading,
+  alert
 }) => {
   useEffect(() => {
     retrieveAlumni()
@@ -36,11 +38,12 @@ const Alumni = ({
     tempat_lahir: false,
     tanggal_lahir: false,
     jurusan: false,
-    tahun_lulus: false
+    tahun_lulus: false,
+    file: false
   }
   const [alumniIsValid, setAlumniIsValid] = useState(initDataAlumniIsValid)
   const [dataAlumni, setDataAlumni] = useState(initDataAlumni)
-  const [show, setShow] = useState(0)
+  const [batchAlumni, setBatchAlumni] = useState([])
   const onChange = (e) => {
     setDataAlumni({
       ...dataAlumni,
@@ -87,12 +90,47 @@ const Alumni = ({
   const onSubmit = (e) => {
     if(validate()){
       createAlumni(dataAlumni)
-      setShow(1)
-    }
+      setDataAlumni(initDataAlumni)
+    } 
   }
 
-  const closeAlert = (e) => {
-    setShow(0)
+  const fileValidate = () => {
+    let err = {}
+    let isInValid = true
+    if(batchAlumni.length < 1) {
+      isInValid = false
+      err.file = true
+    }
+    setAlumniIsValid({...isInValid, ...err})
+    return isInValid
+  }
+
+  const onSubmitBatch = (e) => {
+    if(fileValidate()){
+      createBatchAlumni(batchAlumni)
+    } 
+  }
+
+  const readExcel = (file) => {
+    const promise = new Promise((resolve, reject) => {
+      const fileReader = new FileReader()
+      fileReader.readAsArrayBuffer(file)
+      fileReader.onload = (e) => {
+        const bufferArray = e.target.result
+        const wb = XLSX.read(bufferArray, {type: 'buffer'})
+        const wsname = wb.SheetNames[0]
+        const ws = wb.Sheets[wsname]
+        const data = XLSX.utils.sheet_to_json(ws)
+        resolve(data)
+      }
+      fileReader.onerror = (error) => {
+        reject(error)
+      }
+    })
+
+    promise.then((d) => {
+      setBatchAlumni(d)
+    })
   }
 
   return (
@@ -106,13 +144,13 @@ const Alumni = ({
               <div className="col-12">
                 <div className="card">
                   <div className="margin p-2">
-                  <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#tambah" onClick={() => setShow(0)}>
+                  <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#tambah">
                     <i className="fas fa-plus mr-2" />
                     Tambah Alumni
                   </button>
                   <button type="button" className="btn btn-primary ml-2" data-toggle="modal" data-target="#import">
                     <i className="fas fa-file-import mr-2" />
-                    Import
+                    Import Excel
                   </button>
                   </div>
                 </div>
@@ -137,11 +175,15 @@ const Alumni = ({
             onSubmit={onSubmit}
             dataAlumni={dataAlumni}
             isInvalid={alumniIsValid}
-            showAlert={show}
-            closeAlert={closeAlert}
+            alert={alert}
           />
           
-          <ModalImportAlumni />
+          <ModalImportAlumni 
+            readExcel={readExcel}
+            onSubmit={onSubmitBatch}
+            isInvalid={alumniIsValid.file}
+            alert={alert}
+          />
 
         </div>
       </div>
@@ -156,10 +198,12 @@ const mapStateToProps = (state) => {
   return {
     alumni: state.alumni.alumni,
     loading: state.alumni.loading,
+    alert: state.alert
   }
 }
 
 export default connect(mapStateToProps, {
   retrieveAlumni,
-  createAlumni
+  createAlumni,
+  createBatchAlumni
 })(Alumni)
