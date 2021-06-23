@@ -66,7 +66,7 @@ const Menu = () => {
                 </li>
               </ul>
             </li>
-            <li class="nav-header">Data Alumni</li>
+            <li className="nav-header">Data Alumni</li>
             <li className="nav-item">
               <Link to="/admin/alumni" className="nav-link">
                 <i className="nav-icon fas fa-table" />

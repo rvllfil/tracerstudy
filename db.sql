@@ -16,6 +16,7 @@ CREATE TABLE alumni(
   jenis_kelamin VARCHAR(50) NOT NULL,
   tempat_lahir VARCHAR(50) NOT NULL,
   tanggal_lahir DATE NOT NULL,
+  jurusan VARCHAR(255) NOT NULL,
   tahun_lulus VARCHAR(5) NOT NULL,
   alamat VARCHAR(255),
   no_hp VARCHAR(50),
