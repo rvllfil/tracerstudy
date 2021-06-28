@@ -4,6 +4,7 @@ import {
   RETRIEVE_ALUMNI,
   UPDATE_ALUMNI,
   DELETE_ALUMNI,
+  DELETE_ALL_ALUMNI,
   LOADING_ALUMNI
 } from '../types/alumniTypes'
 
@@ -42,13 +43,20 @@ const alumniReducer = (state = initialState, action) => {
           } else {
             return data
           }
-        })
+        }),
+        loading: false
       }
     
     case DELETE_ALUMNI:
       return {
         ...state,
-        alumni: state.alumni.filter(item => item.id !== payload)
+        alumni: state.alumni.filter(item => item.id !== payload.id)
+      }
+
+    case DELETE_ALL_ALUMNI:
+      return {
+        ...state,
+        alumni: []
       }
     
     case LOADING_ALUMNI:

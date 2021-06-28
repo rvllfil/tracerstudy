@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import TableAlumni from '../../components/Admin/TableAlumni'
 import { connect } from 'react-redux'
-import { retrieveAlumni, createAlumni, createBatchAlumni } from '../../redux/actions/alumniActions'
+import { retrieveAlumni, createAlumni, createBatchAlumni, updateAlumni } from '../../redux/actions/alumniActions'
+import { clearAlert } from '../../redux/actions/alertActions'
 import { Spinner } from 'react-bootstrap'
 import Footer from '../../components/adminlte/Footer'
 import Header from '../../components/adminlte/Header'
@@ -9,6 +10,9 @@ import Menu from '../../components/adminlte/Menu'
 import ModalTambahAlumni from '../../components/Admin/ModalTambahAlumni'
 import ModalImportAlumni from '../../components/Admin/ModalImportAlumni'
 import * as XLSX from 'xlsx'
+import ModalDeleteAllALumni from '../../components/Admin/ModalDeleteAllALumni'
+import ModalUbahAlumni from '../../components/Admin/ModalUbahAlumni'
+import ModalHapusAlumni from '../../components/Admin/ModalHapusAlumni'
 
 const Alumni = ({
   retrieveAlumni,
@@ -16,6 +20,8 @@ const Alumni = ({
   createBatchAlumni,
   alumni,
   loading,
+  clearAlert,
+  updateAlumni,
   alert
 }) => {
   useEffect(() => {
@@ -44,10 +50,28 @@ const Alumni = ({
   const [alumniIsValid, setAlumniIsValid] = useState(initDataAlumniIsValid)
   const [dataAlumni, setDataAlumni] = useState(initDataAlumni)
   const [batchAlumni, setBatchAlumni] = useState([])
+  const [dataEditAlumni, setDataEditAlumni] = useState({
+    id: '',
+    nisn: '',
+    nama: '',
+    jenis_kelamin: '',
+    tempat_lahir: '',
+    tanggal_lahir: '',
+    jurusan: '',
+    tahun_lulus: ''
+  })
+
   const onChange = (e) => {
     setDataAlumni({
       ...dataAlumni,
       [e.target.name]: e.target.value 
+    })
+  }
+
+  const onChangeUbah = (e) => {
+    setDataEditAlumni({
+      ...dataEditAlumni,
+      [e.target.name]: e.target.value
     })
   }
 
@@ -86,11 +110,51 @@ const Alumni = ({
     return isInValid
   }
 
+  const validateUbah = () => {
+    let err = {}
+    let isInValid = true
+    if(!dataEditAlumni.nisn) {
+      isInValid = false
+      err.nisn = true
+    }
+    if(!dataEditAlumni.nama) {
+      isInValid = false
+      err.nama = true
+    }
+    if(!dataEditAlumni.jenis_kelamin) {
+      isInValid = false
+      err.jenis_kelamin = true
+    }
+    if(!dataEditAlumni.tempat_lahir) {
+      isInValid = false
+      err.tempat_lahir = true
+    }
+    if(!dataEditAlumni.tanggal_lahir) {
+      isInValid = false
+      err.tanggal_lahir = true
+    }
+    if(!dataEditAlumni.jurusan) {
+      isInValid = false
+      err.jurusan = true
+    }
+    if(!dataEditAlumni.tahun_lulus) {
+      isInValid = false
+      err.tahun_lulus = true
+    }
+    setAlumniIsValid({...isInValid, ...err})
+    return isInValid
+  }
 
   const onSubmit = (e) => {
     if(validate()){
       createAlumni(dataAlumni)
       setDataAlumni(initDataAlumni)
+    } 
+  }
+
+  const onSubmitUbah = (e) => {
+    if(validateUbah()){
+      updateAlumni(dataEditAlumni)
     } 
   }
 
@@ -144,14 +208,18 @@ const Alumni = ({
               <div className="col-12">
                 <div className="card">
                   <div className="margin p-2">
-                  <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#tambah">
-                    <i className="fas fa-plus mr-2" />
-                    Tambah Alumni
-                  </button>
-                  <button type="button" className="btn btn-primary ml-2" data-toggle="modal" data-target="#import">
-                    <i className="fas fa-file-import mr-2" />
-                    Import Excel
-                  </button>
+                    <button type="button" className="btn btn-outline-primary" data-toggle="modal" data-target="#tambah" onClick={()=>clearAlert()}>
+                      <i className="fas fa-plus mr-2" />
+                      Tambah Alumni
+                    </button>
+                    <button type="button" className="btn btn-primary ml-2" data-toggle="modal" data-target="#import" onClick={()=>clearAlert()}>
+                      <i className="fas fa-file-import mr-2" />
+                      Import Excel
+                    </button>
+                    <button type="button" className="btn btn-danger ml-2" data-toggle="modal" data-target="#deleteAllAlumni">
+                      <i className="fas fa-trash mr-2" />
+                      Hapus Semua Data
+                    </button>
                   </div>
                 </div>
               </div>
@@ -166,7 +234,10 @@ const Alumni = ({
                   </div>
                 </div>
               </div>:
-              <TableAlumni datas={alumni}/>
+              <TableAlumni 
+                datas={alumni}
+                setDataEditAlumni={setDataEditAlumni}
+              />
             }
           </div>
 
@@ -182,6 +253,20 @@ const Alumni = ({
             readExcel={readExcel}
             onSubmit={onSubmitBatch}
             isInvalid={alumniIsValid.file}
+            alert={alert}
+          />
+
+          <ModalDeleteAllALumni />
+
+          <ModalHapusAlumni 
+            dataAlumni={dataEditAlumni}
+          />
+
+          <ModalUbahAlumni 
+            onChange={onChangeUbah}
+            onSubmit={onSubmitUbah}
+            dataAlumni={dataEditAlumni}
+            isInvalid={alumniIsValid}
             alert={alert}
           />
 
@@ -205,5 +290,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   retrieveAlumni,
   createAlumni,
-  createBatchAlumni
+  createBatchAlumni,
+  updateAlumni,
+  clearAlert
 })(Alumni)

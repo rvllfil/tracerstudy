@@ -1,16 +1,18 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import avatar from '../../img/avatar.png'
 import logo from '../../img/logo.png'
 
 
 const Menu = () => {
+  const location = useLocation();
+  const path = location.pathname
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       {/* Brand Logo */}
-      <a href="index3.html" className="brand-link">
+      <Link to='/admin' className="brand-link">
         <img src={logo} alt="SMK HASSINA Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
         <span className="brand-text font-weight-light">SMK HASSINA</span>
-      </a>
+      </Link>
       {/* Sidebar */}
       <div className="sidebar">
         {/* Sidebar user panel (optional) */}
@@ -29,15 +31,15 @@ const Menu = () => {
             {/* Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library */}
             <li className="nav-item">
-              <div className="nav-link active">
+              <Link to="/admin" className={`nav-link ${path === '/admin' ? 'active': ''}`}>
                 <i className="nav-icon fas fa-tachometer-alt" />
                 <p>
                   Dashboard
                 </p>
-              </div>
+              </Link>
             </li>
             
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a href="#" className="nav-link">
                 <i className="nav-icon fas fa-table" />
                 <p>
@@ -65,10 +67,10 @@ const Menu = () => {
                   </a>
                 </li>
               </ul>
-            </li>
-            <li className="nav-header">Data Alumni</li>
+            </li> */}
+            <li className="nav-header text-center mt-3">Data Alumni</li>
             <li className="nav-item">
-              <Link to="/admin/alumni" className="nav-link">
+              <Link to="/admin/alumni" className={`nav-link ${path === '/admin/alumni' ? 'active': ''}`}>
                 <i className="nav-icon fas fa-table" />
                 <p>
                   Alumni
