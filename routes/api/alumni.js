@@ -3,6 +3,8 @@ const router = express.Router()
 const pool = require('./../../db')
 const format = require('pg-format')
 const { data, dataAnd, arrStr, batch } = require('../../function')
+const bcrypt = require('bcryptjs')
+
 
 // // @route   GET api/alumni/all
 // // @desc    Get All Alumni nested
@@ -110,7 +112,12 @@ router.get('/:id', async (req, res) => {
 // @access  Public
 router.post('/', async (req, res) => {
   const b = req.body
+  let nama = b.nama
+  let email = b.nisn
+  let password = new Date(b.tanggal_lahir).toLocaleDateString('id-ID')
+  let role = 'alumni'
   let sql
+  let sqlUser
   if(Array.isArray(b)){
     const body = batch(b)
     const keys = Object.keys(req.body[0]).toString()
@@ -121,10 +128,42 @@ router.post('/', async (req, res) => {
     sql = format('INSERT INTO alumni (%s) VALUES (%s) RETURNING *;', keys, body)
   }
   try {
-    console.log(sql)
     const newAlumni = await pool.query(sql)
-    if(!newAlumni) throw Error('Terjadi Kesalahan ketika menyimpan Data Alumni')
+    if(!newAlumni.rows) throw Error('Terjadi Kesalahan ketika menyimpan Data Alumni')
+    let newUser
+
+    if(Array.isArray(b)) {
+      // Create Salt & Hash
+      b.map(data => {
+        let pass = new Date(data.tanggal_lahir).toLocaleDateString('id-ID')
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(pass, salt, async (err, hash) => {
+            if(err) throw err
+            pass = hash
+            // Save User
+            sqlUser = format('INSERT INTO users (nama, email, password, role) VALUES (%L, %L, %L, %L) RETURNING *;', data.nama, data.nisn, pass, role)
+            newUser = await pool.query(sqlUser)
+            if(!newUser.rows) throw Error('Terjadi Kesalahan ketika menyimpan Data Akun User ALumni')
+          })
+        })
+      })
+    } else {
+      // Create Salt & Hash
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
+          if(err) throw err
+          password = hash
+          // Save User
+          sqlUser = format('INSERT INTO users (nama, email, password, role) VALUES (%L, %L, %L, %L) RETURNING *;', nama, email, password, role)
+          newUser = await pool.query(sqlUser)
+          if(!newUser.rows) throw Error('Terjadi Kesalahan ketika menyimpan Data Akun User ALumni')
+          else console.log('berhasil')
+        })
+      })  
+    }
+    
     res.status(201).json(newAlumni.rows)
+  
   } catch (e) {
     res.status(400).json({
       msg: e.message
@@ -141,9 +180,31 @@ router.put('/:id', async (req, res) => {
   const updateData = data(req.body, keys)
   const sql = format("UPDATE alumni SET %s WHERE id = %L RETURNING *", updateData, id)
   try {
-    const updateBab = await pool.query(sql)
-    if(!updateBab) throw Error('Terjadi Kesalahan ketika menyimpan Data Alumni')
-    res.status(200).json(updateBab.rows)
+    const alumni = await pool.query("SELECT * FROM alumni WHERE id = $1", [id])
+    if(!alumni.rows) throw Error("Data Alumni tidak ditemukan")
+    if(req.body.nama !== undefined && req.body.nama !== null) {
+      const updateUser = await pool.query("UPDATE users SET nama=$1 WHERE email = $2 RETURNING *;", [req.body.nama, alumni.rows[0].nisn])
+      if(!updateUser) throw Error('Terjadi Kesalahan ketika menyimpan Data User')
+    } 
+    if(req.body.nisn !== undefined && req.body.nisn !== null) {
+      const updateUser = await pool.query("UPDATE users SET email=$1 WHERE email = $2 RETURNING *;", [req.body.nisn, alumni.rows[0].nisn])
+      if(!updateUser) throw Error('Terjadi Kesalahan ketika menyimpan Data User')
+    } 
+    if(req.body.tanggal_lahir !== undefined && req.body.tanggal_lahir !== null) {
+      password = req.body.tanggal_lahir
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(password, salt, async (err, hash) => {
+          if(err) throw err
+          password = hash
+          // Save User
+          const updateUser = await pool.query("UPDATE users SET password=$1 WHERE email = $2 RETURNING *;", [password, alumni.rows[0].nisn])
+          if(!updateUser) throw Error('Terjadi Kesalahan ketika menyimpan Data User')
+        })
+      })  
+    }
+    const updateAlumni = await pool.query(sql)
+    if(!updateAlumni) throw Error('Terjadi Kesalahan ketika menyimpan Data Alumni')
+    res.status(200).json(updateAlumni.rows)
   } catch (e) {
     res.status(400).json({
       msg: e.message
@@ -157,9 +218,11 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   const {id} = req.params
   try {
-    const deleteBab = await pool.query("DELETE FROM alumni WHERE id = $1 RETURNING *;", [id])
-    if(!deleteBab) throw Error("Data Alumni tidak ditemukan")
-    res.status(200).json(deleteBab.rows)
+    const deleteAlumni = await pool.query("DELETE FROM alumni WHERE id = $1 RETURNING *;", [id])
+    if(!deleteAlumni) throw Error("Data Alumni Gagal Dihapus")
+    const deleteUser = await pool.query("DELETE FROM users WHERE email = $1 RETURNING *;", [deleteAlumni.rows[0].nisn])
+    if(!deleteUser) throw Error("Data User Gagal Dihapus")
+    res.status(200).json(deleteAlumni.rows)
   } catch (e) {
     res.status(400).json({
       msg: e.message
@@ -172,9 +235,13 @@ router.delete('/:id', async (req, res) => {
 // @access  Public
 router.delete('/', async (req, res) => {
   try {
-    const deleteBab = await pool.query("DELETE FROM alumni WHERE id > 0;")
-    if(!deleteBab) throw Error("Data Alumni tidak ditemukan")
-    res.status(200).json('Berhasil menghapus semua data alumni.')
+    const deleteAlumni = await pool.query("DELETE FROM alumni WHERE id > 0 RETURNING *;")
+    if(!deleteAlumni) throw Error("Data Alumni tidak ditemukan")
+    deleteAlumni.rows.map(data => {
+      const deleteUser = pool.query("DELETE FROM users WHERE email = $1 RETURNING *;", [data.nisn])
+      if(!deleteUser) throw Error("Data User Gagal Dihapus")
+    })
+    res.status(200).json(deleteAlumni.rows)
   } catch (e) {
     res.status(400).json({
       msg: e.message

@@ -1,0 +1,59 @@
+import NavBar from '../components/Navbar'
+
+const InfoLoker = () => {
+  return (
+    <>
+      <NavBar />
+      <div className="row mt-5 px-5">
+        <div className="col-lg-8">
+          {/* the actual blog post: title/author/date/content */}
+          <h1><a href>Lowongan Kerja HRD – REKRUTMEN & TRAINER</a></h1>
+          <p className="lead"><i className="fa fa-user" /> oleh <a href>Admin</a>
+          </p>
+          <hr />
+          <p><i className="fa fa-calendar" /> Di Publis pada 3 Juli 2019 at 9:00 PM</p>
+          <p><i className="fa fa-tags" /> Tags: <a href><span className="badge badge-info">Lowongan Pekerjaan</span></a></p>
+          <hr />
+          <img src="http://placehold.it/900x300" className="img-responsive" />
+          <hr />
+          
+         <div>
+  <div itemProp="description" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>
+    <p style={{boxSizing: 'border-box', margin: '0px 0px 1em'}}>PT. Bintang Putra Alexander adalah perusahaan Alih Daya di bidang Jasa Kebersihan (Cleaning Service), Keamanan (Security) dan Office Support.<br style={{boxSizing: 'border-box'}} />Untuk memenuhi kebutuhan SDM diperusahaan kami membuka peluang kepada calon tenaga kerja yang berpengalaman di HRD terutama Recruiter &amp; Trainer dan terbiasa mengurus perijinan-perijinan perusahaan .</p>
+  </div>
+  <h5 style={{boxSizing: 'border-box', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 'bold', lineHeight: '1.1', color: 'rgb(102, 102, 102)', marginTop: 12, marginBottom: 12, fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Tanggung Jawab Pekerjaan :</h5>
+  <div itemProp="responsibilities" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>
+    <p style={{boxSizing: 'border-box', margin: '0px 0px 1em'}}>1. Melakukan proses rekruitmen<br style={{boxSizing: 'border-box'}} />2. Mengetahui dan dapat menggunakan alat-alat psikotes<br style={{boxSizing: 'border-box'}} />3. Membuat database calon pelamar yang lolos seleksi<br style={{boxSizing: 'border-box'}} />4. Mempersiapkan modul Training<br style={{boxSizing: 'border-box'}} />5. Berpengalaman sebagai trainer</p>
+  </div>
+  <h5 style={{boxSizing: 'border-box', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 'bold', lineHeight: '1.1', color: 'rgb(102, 102, 102)', marginTop: 12, marginBottom: 12, fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Syarat Pengalaman :</h5>
+  <div itemProp="experienceRequirements" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Pengalaman sebagai HRD minimal 1 tahun</div>
+  <h5 style={{boxSizing: 'border-box', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 'bold', lineHeight: '1.1', color: 'rgb(102, 102, 102)', marginTop: 12, marginBottom: 12, fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Keahlian :</h5>
+  <div itemProp="skills" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>
+    <p style={{boxSizing: 'border-box', margin: '0px 0px 1em'}}>1. Rekrutmen<br style={{boxSizing: 'border-box'}} />2. Trainer / Motivator<br style={{boxSizing: 'border-box'}} />3. Industrial Relation<br style={{boxSizing: 'border-box'}} />4. Perijinan</p>
+  </div>
+  <h5 style={{boxSizing: 'border-box', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 'bold', lineHeight: '1.1', color: 'rgb(102, 102, 102)', marginTop: 12, marginBottom: 12, fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Kualifikasi :</h5>
+  <div itemProp="qualifications" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>
+    <p style={{boxSizing: 'border-box', margin: '0px 0px 1em'}}>1. Usia min.25 th<br style={{boxSizing: 'border-box'}} />2. Minimal D.3<br style={{boxSizing: 'border-box'}} />3. Jujur dan bertanggung jawab<br style={{boxSizing: 'border-box'}} />4. Sehat Jasmani dan Rohani<br style={{boxSizing: 'border-box'}} />5. Berpengalaman</p>
+  </div>
+  <h5 style={{boxSizing: 'border-box', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 'bold', lineHeight: '1.1', color: 'rgb(102, 102, 102)', marginTop: 12, marginBottom: 12, fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Tunjangan :</h5>
+  <div itemProp="jobBenefits" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>
+    <p style={{boxSizing: 'border-box', margin: '0px 0px 1em'}}>Tunjangan Transport<br style={{boxSizing: 'border-box'}} />Tunjangan Operational</p>
+  </div>
+  <h5 style={{boxSizing: 'border-box', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 'bold', lineHeight: '1.1', color: 'rgb(102, 102, 102)', marginTop: 12, marginBottom: 12, fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Insentif :</h5>
+  <div itemProp="incentiveCompensation" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>
+    <p style={{boxSizing: 'border-box', margin: '0px 0px 1em'}}>Uang Lembur</p>
+  </div>
+  <h5 style={{boxSizing: 'border-box', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontWeight: 'bold', lineHeight: '1.1', color: 'rgb(102, 102, 102)', marginTop: 12, marginBottom: 12, fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Waktu Bekerja :</h5>
+  <div itemProp="workHours" style={{boxSizing: 'border-box', color: 'rgb(102, 102, 102)', fontFamily: 'Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif', fontSize: 16, fontStyle: 'normal', fontVariantLigatures: 'normal', fontVariantCaps: 'normal', fontWeight: 400, letterSpacing: '0.1px', orphans: 2, textAlign: 'start', textIndent: 0, textTransform: 'none', whiteSpace: 'normal', widows: 2, wordSpacing: 0, WebkitTextStrokeWidth: 0, backgroundColor: 'rgb(255, 255, 255)', textDecorationThickness: 'initial', textDecorationStyle: 'initial', textDecorationColor: 'initial'}}>Jam 08.00 – 17.00 wib; Senin – Sabtu</div>
+</div>
+
+
+
+        </div>
+      </div>
+
+    </>
+  )
+}
+
+export default InfoLoker

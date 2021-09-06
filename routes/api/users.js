@@ -48,10 +48,11 @@ router.get('/:id', async (req, res) => {
 
 
 // @route   POST api/users
-// @desc    Register New User
+// @desc    Register New Admin
 // @access  Public
 router.post('/', async (req, res) => {
   let { nama, email, password} = req.body
+  let role = 'admin'
   if(!nama || !email || !password ) {
     return res.status(400).json({msg: 'Harap Masukan Semua Data'})
   }
@@ -69,7 +70,7 @@ router.post('/', async (req, res) => {
         if(err) throw err
         password = hash
         // Save User
-        const newUser = await pool.query("INSERT INTO users (nama, email, password) VALUES ($1, $2, $3) RETURNING *", [nama, email, password])
+        const newUser = await pool.query("INSERT INTO users (nama, email, password, role) VALUES ($1, $2, $3, $4) RETURNING *", [nama, email, password, role])
         res.status(201).json(newUser.rows)
       })
     })
@@ -81,8 +82,8 @@ router.post('/', async (req, res) => {
   }
 })
 
-// @route   PUT api/bab
-// @desc    Edit Bab
+// @route   PUT api/users
+// @desc    Edit Users
 // @access  Public
 router.put('/:id', async (req, res) => {
   const {id} = req.params
@@ -131,8 +132,8 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-// @route   DELETE api/bab
-// @desc    Remove a Bab
+// @route   DELETE api/users
+// @desc    Remove a User
 // @access  Public
 router.delete('/:id', async (req, res) => {
   const {id} = req.params

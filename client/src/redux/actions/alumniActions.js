@@ -22,6 +22,18 @@ export const retrieveAlumni = () => dispatch => {
     )
 }
 
+export const retrieveOneAlumni = (nisn, nama) => dispatch => {
+  dispatch(setLoadingAlumni())
+  axios
+    .get(`api/alumni?nisn=${nisn}&nama=${nama}`)
+    .then(res =>
+      dispatch({
+        type: RETRIEVE_ALUMNI,
+        payload: res.data
+      })
+    )
+}
+
 export const createAlumni = (data) => dispatch => {
   dispatch(setLoadingAlumni())
   axios
@@ -90,6 +102,7 @@ export const deleteAlumni = (id) => dispatch => {
   axios
     .delete(`/api/alumni/${id}`)
     .then(res =>
+      // console.log(res.data[0])
       dispatch({
         type: DELETE_ALUMNI,
         payload: res.data[0]

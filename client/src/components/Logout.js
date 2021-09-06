@@ -1,20 +1,23 @@
 import { Fragment } from 'react'
+import { Link } from 'react-bootstrap-icons'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router'
-import { logout } from '../redux/actions/authAction'
+import { logoutAlumni } from '../redux/actions/authAction'
 
-const Logout = ({logout, sty}) => {
+const Logout = ({logoutAlumni, sty}) => {
   const history = useHistory()
   const click = () => {
-    logout(history)
+    logoutAlumni(history)
   }
   return (
-    <Fragment>
-      <div className={sty} onClick={click}>Logout</div>
+    <Fragment>        
+      <div className={sty} onClick={click} style={{cursor: 'pointer'}}>
+        Logout
+      </div>
     </Fragment>
   )
 }
 
 export default connect(null, {
-  logout
+  logoutAlumni
 })(Logout)

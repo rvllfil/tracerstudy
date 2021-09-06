@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 import { Spinner } from 'react-bootstrap'
-import NavBar from '../components/adminNavbar'
-import Home from '../components/Admin/Home'
+import Home from '../../components/Admin/Home'
 
 const Admin = ({user, loadingUsers}) => {
   return (

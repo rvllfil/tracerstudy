@@ -7,7 +7,7 @@ const Menu = () => {
   const location = useLocation();
   const path = location.pathname
   return (
-    <aside className="main-sidebar sidebar-dark-primary elevation-4">
+    <aside className="main-sidebar sidebar-dark-cyan elevation-4">
       {/* Brand Logo */}
       <Link to='/admin' className="brand-link">
         <img src={logo} alt="SMK HASSINA Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
@@ -68,12 +68,35 @@ const Menu = () => {
                 </li>
               </ul>
             </li> */}
-            <li className="nav-header text-center mt-3">Data Alumni</li>
             <li className="nav-item">
               <Link to="/admin/alumni" className={`nav-link ${path === '/admin/alumni' ? 'active': ''}`}>
                 <i className="nav-icon fas fa-table" />
                 <p>
                   Alumni
+                </p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/admin/tracer-study" className={`nav-link ${path === '/admin/tracer-study' ? 'active': ''}`}>
+                <i className="nav-icon fas fa-search" />
+                <p>
+                  Tracer Study
+                </p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/admin/loker" className={`nav-link ${path === '/admin/loker' ? 'active': ''}`}>
+                <i className="nav-icon fas fa-newspaper" />
+                <p>
+                  Lowongan Kerja
+                </p>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/admin/pelatihan" className={`nav-link ${path === '/admin/pelatihan' ? 'active': ''}`}>
+                <i className="nav-icon fas fa-newspaper" />
+                <p>
+                  Pelatihan
                 </p>
               </Link>
             </li>

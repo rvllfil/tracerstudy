@@ -13,6 +13,7 @@ function App() {
       store.dispatch(loadAdmin())
     }
   },[user])
+
   return (
     <Provider store={store}>
       <BrowserRouter>

@@ -31,7 +31,9 @@ const TableAlumni = ({
     }    
   }
 
-
+useEffect(() => {
+    setFiltered(datas)
+  }, [datas])
   
 
   return (

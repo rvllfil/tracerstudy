@@ -10,9 +10,9 @@ exports.arrStr = (arr) => {
 exports.batch = (arrs) => {
 	let result = []
   	arrs.map((arr, index) => {
-      	const values = Object.values(arr)
-        const value = '('+this.arrStr(values)+')'
-      	result = [...result, value]
+      const values = Object.values(arr)
+      const value = '('+this.arrStr(values)+')'
+      result = [...result, value]
     })
   	return result.toString()
 }

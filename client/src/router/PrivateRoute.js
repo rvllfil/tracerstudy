@@ -13,9 +13,9 @@ const PrivateRoute = ({
   const history = useHistory()
   useEffect(() => {
     try {
-      if (!isLoading && user.role === 'user') {
+      if (!isLoading && user.role === 'alumni') {
         setIsMember(true)
-      } else if (!isLoading && user.role !== 'user') {
+      } else if (!isLoading && user.role !== 'alumni') {
         setIsMember(false)
       }
     } catch (e) {

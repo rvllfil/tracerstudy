@@ -49,10 +49,10 @@ const Login = ({login, error}) => {
       await login(data, history)
       console.log(data)
     }
-    setData({
-      email: '',
-      password: ''
-    })
+    // setData({
+    //   email: '',
+    //   password: ''
+    // })
   }
 
     
@@ -68,7 +68,7 @@ const Login = ({login, error}) => {
 
   return (
     <>
-      <div className='cont'>
+      <div className='container' style={{maxWidth: '480px'}}>
         <div className='mt-5 d-flex justify-content-center'>
           <img className='py-5 mt-3' src={logo} alt="Logo SMK Hassina" width="150" />
         </div>

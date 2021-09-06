@@ -15,12 +15,15 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chart.js": "^3.5.0",
     "concurrently": "^6.2.0",
     "config": "^3.3.6",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
     "fs": "*",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
-    "pg-format": "^1.0.4"
+    "pg-format": "^1.0.4",
+    "react-chartjs-2": "^3.0.4"
   }
 }
